@@ -1,0 +1,29 @@
+service: adesa-watchdog
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  profile: adesa-user
+  region: eu-central-1
+
+useDotenv: true
+
+plugins:
+  - serverless-esbuild
+
+custom:
+  esbuild:
+    bundle: true
+    minify: true
+    sourcemap: true
+    keepNames: true
+
+package:
+  individually: true
+
+functions:
+  adesaWatchdog:
+    handler: src/index.handler
+    name: ${sls:stage}-adesaWatchdog
+    description: Watchdog for cars in Adesa.eu
+    memorySize: 512
