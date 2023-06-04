@@ -1,8 +1,1 @@
-/dist/
-/.serverless/
-/.esbuild/
-/.env
-generated/
-/.build/
-.env*
-/node_modules/
+node_modules/

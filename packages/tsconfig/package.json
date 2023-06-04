@@ -1,0 +1,10 @@
+{
+  "name": "tsconfig",
+  "version": "1.0.0",
+  "author": "Juraj Zec (https://github.com/xzec)",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -14,7 +14,7 @@ const MOCK_EVENT_BODY = {
       {
         Make: 'Skoda',
         Models: [
-          'Karoq',
+          'Kamiq',
         ],
       },
     ],
@@ -42,7 +42,7 @@ const MOCK_EVENT_BODY = {
   },
   UniqueSearchLogId: '04f564be-5787-4055-a4cc-ec7b1a06a43e',
   SavedSearchId: null,
-  PageUrl: 'https://www.adesa.eu/en/findcar?makesModels=Skoda%2CKaroq&transmissionTypes=Automatic',
+  PageUrl: 'https://www.adesa.eu/en/findcar?makesModels=Skoda%2CKamiq&transmissionTypes=Automatic',
 }
 
 export async function handler(): Promise<void> {
@@ -75,17 +75,18 @@ export async function handler(): Promise<void> {
   const validatedSearchResult: AdesaCarSearch = AdesaCarSearchSchema.parse(searchResult)
 
   console.log(validatedSearchResult.Count)
-  validatedSearchResult.Auctions.forEach((auction: AdesaCarAuction) => {
-    console.log({
-      AuctionId: auction.AuctionId,
-      CarNameEn: auction.CarNameEn,
-      CarCountryExtended: auction.CarCountryExtended,
-      BatchStartDate: auction.BatchStartDate,
-      BatchEndDate: auction.BatchEndDate,
-      StartPrice: auction.StartPrice,
-      RequestedSalesPrice: auction.RequestedSalesPrice,
-      CurrentPrice: auction.CurrentPrice,
-      CurrencyCodeId: auction.CurrencyCodeId,
-    })
-  })
+  const toLog = validatedSearchResult.Auctions.map((auction: AdesaCarAuction) => ({
+    AuctionId: auction.AuctionId,
+    CarNameEn: auction.CarNameEn,
+    CarCountryExtended: auction.CarCountryExtended,
+    BatchStartDate: auction.BatchStartDate,
+    BatchEndDate: auction.BatchEndDate,
+    StartPrice: auction.StartPrice,
+    RequestedSalesPrice: auction.RequestedSalesPrice,
+    CurrentPrice: auction.CurrentPrice,
+    CurrencyCodeId: auction.CurrencyCodeId,
+  }))
+
+  console.log(toLog)
+  // console.log(JSON.stringify(searchResult))
 }
