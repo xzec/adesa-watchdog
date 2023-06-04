@@ -90,3 +90,4 @@ export async function handler(): Promise<void> {
   console.log(toLog)
   // console.log(JSON.stringify(searchResult))
 }
+
