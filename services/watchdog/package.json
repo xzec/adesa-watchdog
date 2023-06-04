@@ -9,6 +9,7 @@
   "type": "module",
   "scripts": {
     "build": "node esbuild.js",
+    "build:watch": "node esbuild.js -w",
     "start": "node dist/index.js"
   },
   "devDependencies": {

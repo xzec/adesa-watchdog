@@ -1,7 +1,7 @@
-import { build } from 'esbuild'
+import { context } from 'esbuild'
 import fg from 'fast-glob'
 
-await build({
+const ctx = await context({
   entryPoints: await fg('src/**/*.ts'),
   platform: 'node',
   target: 'node18',
@@ -24,3 +24,5 @@ await build({
       `,
   },
 })
+
+process.argv[2] === '-w' ? await ctx.watch() : await ctx.rebuild()
