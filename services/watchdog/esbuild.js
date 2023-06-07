@@ -1,7 +1,10 @@
-import { context } from 'esbuild'
+import {
+  build,
+  context,
+} from 'esbuild'
 import fg from 'fast-glob'
 
-const ctx = await context({
+const options = {
   entryPoints: await fg('src/**/*.ts'),
   platform: 'node',
   target: 'node18',
@@ -15,14 +18,19 @@ const ctx = await context({
   treeShaking: true,
   banner: {
     js: `
-      import path from 'path';
-      import { fileURLToPath } from 'url';
       import { createRequire as topLevelCreateRequire } from 'module';
+      import { fileURLToPath } from 'url';
+      import path from 'path';
       const require = topLevelCreateRequire(import.meta.url);
       const __filename = fileURLToPath(import.meta.url);
       const __dirname = path.dirname(__filename);
       `,
   },
-})
+}
 
-process.argv[2] === '-w' ? await ctx.watch() : await ctx.rebuild()
+if (process.argv[2] === '-w') {
+  const ctx = await context(options)
+  await ctx.watch()
+}
+else
+  await build(options)
